@@ -29,10 +29,10 @@ router.get('/list', function(req, res, next) {
      })
 })
 
-router.get('/addflights', function (req, res, next) {
-    res.render('addflights.ejs')
+router.get('/addflight', function (req, res, next) {
+    res.render('addflight.ejs')
 })
-
+ 
 router.post('/flightadded', function (req, res, next) {
     // saving data in database
     let sqlquery = "INSERT INTO flights (name, price) VALUES (?,?)"

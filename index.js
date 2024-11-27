@@ -22,7 +22,7 @@ app.use(express.static(__dirname + '/public'))
 // Define the database connection
 const db = mysql.createConnection ({
     host: 'localhost',
-    user: 'aero_scopes_app',
+    user: 'aero_scope_app',
     password: 'qwertyuiop',
     database: 'aero_scope'
 })
@@ -47,7 +47,7 @@ const usersRoutes = require('./routes/users')
 app.use('/users', usersRoutes)
 
 // Load the route handlers for /product
-const productRoutes = require('./routes/product')
+const productRoutes = require('./routes/flights')
 app.use('/product', productRoutes)
 
 // Start the web app listening
