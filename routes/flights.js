@@ -48,7 +48,7 @@ router.post('/flightadded', function (req, res, next) {
 }) 
 
 router.get('/bargainflights', function(req, res, next) {
-    let sqlquery = "SELECT * FROM books WHERE price < 20"
+    let sqlquery = "SELECT * FROM flights WHERE price < 200"
     db.query(sqlquery, (err, result) => {
         if (err) {
             next(err)
@@ -60,3 +60,5 @@ router.get('/bargainflights', function(req, res, next) {
 
 // Export the router object so index.js can access it
 module.exports = router
+
+

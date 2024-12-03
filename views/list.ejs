@@ -6,11 +6,12 @@
   </head>
   <body>
     <h1><%=shopData.shopName%> Shop</h1>
-    <h2>Here are the books that we sell:</h2>
+    <h2>Here are the flights that we sell:</h2>
     <ul>
-      <% availableFlights.forEach(function(book) { %>
+      <% availableFlights.forEach(function(flight) { %>
         <li><%= flight.name %>, £<%=flight.price%> </li>
       <% }) %>
     </ul>
     </body>
 </html>
+ 

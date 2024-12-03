@@ -1,5 +1,6 @@
 // Import express and ejs
 var express = require ('express')
+var session = require ('express-session')
 var ejs = require('ejs')
 
 //Import mysql module
@@ -18,6 +19,17 @@ app.use(express.urlencoded({ extended: true }))
 
 // Set up public folder (for css and statis js)
 app.use(express.static(__dirname + '/public'))
+
+//create a session
+app.use(session({
+    secret: 'somerandomstuff',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        expires: 600000
+    }
+}))
+
 
 // Define the database connection
 const db = mysql.createConnection ({
@@ -46,9 +58,10 @@ app.use('/', mainRoutes)
 const usersRoutes = require('./routes/users')
 app.use('/users', usersRoutes)
 
-// Load the route handlers for /product
-const productRoutes = require('./routes/flights')
-app.use('/product', productRoutes)
+// Load the route handlers for /flights
+const flightsRoutes = require('./routes/flights')
+app.use('/flights', flightsRoutes)
 
 // Start the web app listening
 app.listen(port, () => console.log(`Node app listening on port ${port}!`))
+
