@@ -13,6 +13,7 @@ const redirectLogin = (req, res, next) => {
     } 
 }
 
+
 router.get('/login', function (req, res, next) {
     res.render('login');  // This will load the login.ejs form
 });
@@ -45,7 +46,8 @@ router.post('/loggedin', function (req, res, next) {
                 req.session.userId = req.body.username;
                 // Passwords match
                 // res.send(`Welcome back, ${username}! You have successfully logged in.`);
-                return res.redirect('/users/listusers');
+                req.session.userId = req.body.username;
+                return res.redirect('/');
             } else {
                 // Passwords don't match
                 res.send('Incorrect password.');
@@ -53,6 +55,16 @@ router.post('/loggedin', function (req, res, next) {
         });
     });
 });
+
+// router.get('/logout', redirectLogin, (req, res) => {
+//     req.session.destroy(err => {
+//         if (err) {
+//             console.error('Error destroying session:', err);
+//             return res.redirect('/');  // Redirect if there's an error
+//         }
+//         res.redirect('/');  // Redirect to home after logout
+//     });
+// });
 
 
 router.get('/register', function (req, res, next) {
@@ -88,7 +100,7 @@ router.post('/registered', function (req, res, next) {
     })
 
 
-router.get('/listusers',redirectLogin, function(req, res, next) {
+router.get('/listusers', function(req, res, next) {
     let sqlquery = "SELECT username, first_name, last_name, email FROM users" // query database to get user information
     // execute sql query
     db.query(sqlquery, (err, result) => {
