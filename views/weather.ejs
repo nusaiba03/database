@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Weather in <%= city %></title>
+    <link rel="stylesheet" type="text/css" href="/main.css" />
+</head>
+<body>
+    <h1>Weather in <%= city %></h1>
+    <% if (weather && weather.main) { %>
+        <p>Temperature: <%= weather.main.temp %>°C</p>
+        <p>Feels Like: <%= weather.main.feels_like %>°C</p>
+        <p>Weather: <%= weather.weather[0].description %></p>
+        <p>Humidity: <%= weather.main.humidity %>%</p>
+    <% } else { %>
+        <p>Sorry, we couldn't fetch the weather data. Please try again later.</p>
+    <% } %>
+</body>
+</html>

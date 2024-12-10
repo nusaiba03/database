@@ -1,4 +1,4 @@
-<!doctype html>
+<!-- <!doctype html>
 <html>
   <head>
     <title>Add flight to <%=shopData.shopName%></title>
@@ -12,4 +12,45 @@
         <input type="submit" value="Add Flight" />
       </form>
   </body>
+</html> -->
+
+<!doctype html>
+<html>
+  <head>
+    <title>Add flight to <%=shopData.shopName%></title>
+    <link rel="stylesheet" type="text/css" href="/main.css" />
+  </head>
+  <body>
+    <h1><%=shopData.shopName%>: Add flight</h1>
+    <form method="POST" action="/flightadded">
+      <!-- Flight Name Input -->
+      <p>
+        Flight destination name: 
+        <input id="name" type="text" name="name" value="<%= formData && formData.name ? formData.name : '' %>" />
+        <% if (errors) { %>
+          <% let nameError = errors.find(error => error.param === 'name'); %>
+          <% if (nameError) { %>
+            <span style="color: red;"><%= nameError.msg %></span>
+          <% } %>
+        <% } %>
+      </p>
+
+      <!-- Price Input -->
+      <p>
+        Price: 
+        <input id="price" type="text" name="price" value="<%= formData && formData.price ? formData.price : '' %>" />
+        <% if (errors) { %>
+          <% let priceError = errors.find(error => error.param === 'price'); %>
+          <% if (priceError) { %>
+            <span style="color: red;"><%= priceError.msg %></span>
+          <% } %>
+        <% } %>
+      </p>
+
+      <!-- Submit Button -->
+      <input type="submit" value="Add Flight" />
+    </form>
+  </body>
 </html>
+
+

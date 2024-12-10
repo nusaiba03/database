@@ -1,5 +1,6 @@
 const express = require("express")
 const router = express.Router()
+const { check, validationResult } = require("express-validator");
 
 router.get('/search',function(req, res, next){
     res.render("search.ejs")
@@ -30,22 +31,52 @@ router.get('/list', function(req, res, next) {
 })
 
 router.get('/addflight', function (req, res, next) {
-    res.render('addflight.ejs')
-})
- 
-router.post('/flightadded', function (req, res, next) {
-    // saving data in database
-    let sqlquery = "INSERT INTO flights (name, price) VALUES (?,?)"
-    // execute sql query
-    let newrecord = [req.body.name, req.body.price]
-    db.query(sqlquery, newrecord, (err, result) => {
-        if (err) {
-            next(err)
-        }
-        else
-            res.send(' This flight is added to database, name: '+ req.body.name + ' price '+ req.body.price)
+    res.render('addflight.ejs',{
+        formData: {},
+        errors: []
     })
-}) 
+})
+
+ 
+router.post(
+    '/flightadded',
+    [
+        check('name')
+            .notEmpty()
+            .withMessage('Flight name is required.')
+            .isLength({ max: 100 })
+            .withMessage('Flight name cannot exceed 100 characters.')
+            .escape(), // Sanitize input
+        check('price')
+            .notEmpty()
+            .withMessage('Price is required')
+            .isFloat({ gt: 0 })
+            .withMessage('Price must be a positive number.'),
+    ],
+    (req, res, next) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).render('addflight.ejs', {
+                errors: errors.array(),
+                formData: req.body,
+            });
+        }
+
+        // Proceed with inserting the flight data
+        let sqlquery = "INSERT INTO flights (name, price) VALUES (?, ?)";
+        let newrecord = [req.body.name, req.body.price];
+        db.query(sqlquery, newrecord, (err, result) => {
+            if (err) {
+                next(err);
+            } else {
+                res.send(
+                    `This flight is added to the database, name: ${req.body.name}, price: ${req.body.price}`
+                );
+            }
+        });
+    }
+);
+
 
 router.get('/bargainflights', function(req, res, next) {
     let sqlquery = "SELECT * FROM flights WHERE price < 200"
