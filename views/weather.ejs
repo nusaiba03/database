@@ -3,16 +3,47 @@
 <head>
     <title>Weather in <%= city %></title>
     <link rel="stylesheet" type="text/css" href="/main.css" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #007BFF;
+        }
+        p {
+            font-size: 1.2em;
+        }
+        .error {
+            color: red;
+            font-weight: bold;
+        }
+        .search-form {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
     <h1>Weather in <%= city %></h1>
-    <% if (weather && weather.main) { %>
-        <p>Temperature: <%= weather.main.temp %>°C</p>
-        <p>Feels Like: <%= weather.main.feels_like %>°C</p>
-        <p>Weather: <%= weather.weather[0].description %></p>
-        <p>Humidity: <%= weather.main.humidity %>%</p>
+    <% if (error) { %>
+        <p class="error"><%= error %></p>
+    <% } else if (weather && weather.main) { %>
+        <p><strong>Temperature:</strong> <%= weather.main.temp %>°C</p>
+        <p><strong>Feels Like:</strong> <%= weather.main.feels_like %>°C</p>
+        <p><strong>Weather:</strong> <%= weather.weather[0].description %></p>
+        <p><strong>Humidity:</strong> <%= weather.main.humidity %>%</p>
+        <p><strong>Wind Speed:</strong> <%= weather.wind.speed %> m/s</p>
     <% } else { %>
         <p>Sorry, we couldn't fetch the weather data. Please try again later.</p>
     <% } %>
+
+    <form class="search-form" action="/weather" method="get">
+        <label for="city">Search for another city:</label>
+        <input type="text" name="city" id="city" placeholder="Enter city name" />
+        <button type="submit">Get Weather</button>
+    </form>
 </body>
 </html>

@@ -34,7 +34,7 @@ router.get('/weather', async (req, res, next) => {
         // Create a human-readable weather message
         const weatherMessage = `
             <h1>Weather in ${weatherData.name}</h1>
-            <p>It is ${weatherData.main.temp} degrees Celsius.</p>
+            <p>It is ${weatherData.main.temp}°C.</p>
             <p>The humidity is ${weatherData.main.humidity}%.</p>
             <p>The wind speed is ${weatherData.wind.speed} m/s.</p>
             <p>Weather condition: ${weatherData.weather[0].description}.</p>
@@ -47,28 +47,31 @@ router.get('/weather', async (req, res, next) => {
             res.render('weather.ejs', {
                 weather: weatherData,
                 city: city,
+                error: null, // No error
             }); // Render with EJS template
         }
     } catch (error) {
         // Handle API or input errors gracefully
+        let errorMsg;
         if (error.response && error.response.status === 404) {
-            const errorMsg = `City "${city}" not found. Please try a valid city name.`;
-
-            // Serve error message in HTML or EJS
-            if (req.query.format === 'html') {
-                res.send(`<p style="color:red;">${errorMsg}</p>`);
-            } else {
-                res.render('weather.ejs', {
-                    error: errorMsg,
-                    weather: null,
-                    city: city,
-                });
-            }
+            errorMsg = `City "${city}" not found. Please try a valid city name.`;
         } else {
-            next(error); // For other errors, pass to the global error handler
+            errorMsg = `An error occurred while fetching weather data. Please try again later.`;
+        }
+
+        // Serve error message in HTML or EJS
+        if (req.query.format === 'html') {
+            res.send(`<p style="color:red;">${errorMsg}</p>`);
+        } else {
+            res.render('weather.ejs', {
+                error: errorMsg,
+                weather: null, // No weather data
+                city: city,
+            });
         }
     }
 });
+
 
 
 
