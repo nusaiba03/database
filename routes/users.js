@@ -1,35 +1,47 @@
-// // Create a new router
-// const express = require('express')
-// const bcrypt = require('bcrypt')
-// const router = express.Router()
-// const saltRounds = 10
+// //Importing required modules
+// const express = require('express');
+// const bcrypt = require('bcrypt');
+// const router = express.Router();
+// const saltRounds = 10;
 // const { check, validationResult } = require('express-validator');
 
-
+// // Middleware to check if the user is logged in
 // const redirectLogin = (req, res, next) => {
-//     if (!req.session.userId ) {
-//       res.redirect('/login') // redirect to the login page
-//     } else { 
-//         next (); // move to the next middleware function
-//     } 
-// }
+//     if (!req.session.userId) {
+//         res.redirect('/login');
+//     } else {
+//         next(); 
+//     }
+// };
+
+// // Middleware to check if the user has admin role
+// const redirectAdmin = (req, res, next) => {
+//     if (req.session.user && req.session.user.role === 'admin') {
+//         next();
+//     } else {
+//         res.status(403).send('Access Denied');
+//     }
+// };
 
 
-// router.get('/login', function (req, res, next) {
-//     res.render('login');  // This will load the login.ejs form
+
+// // Route to render login page
+// router.get('/login', (req, res, next) => {
+//     res.render('login'); 
 // });
 
-// router.post('/loggedin', function (req, res, next) {
+// // Route to handle login credentials
+// router.post('/loggedin', (req, res, next) => {
 //     const errors = validationResult(req);
-//         if (!errors.isEmpty()){
-//             return res.status(400).json({errors:errors.array()})
-//         }
+//     if (!errors.isEmpty()) {
+//         return res.status(400).json({ errors: errors.array() });
+//     }
 
 //     const username = req.body.username;
 //     const plainPassword = req.body.password;
 
 //     // Query the database to get the user's hashed password
-//     let sqlquery = "SELECT * FROM users WHERE username = ?";
+//     let sqlquery = "SELECT hashedPassword, role FROM users WHERE username = ?";
 //     db.query(sqlquery, [username], (err, result) => {
 //         if (err) {
 //             return next(err);
@@ -39,38 +51,37 @@
 //             return res.send('Username not found.');
 //         }
 
-
 //         const hashedPassword = result[0].hashedPassword;
+//         const userRole = result[0].role;
 
 //         // Compare the supplied password with the stored hashed password
-//         bcrypt.compare(plainPassword, hashedPassword, function(err, match) {
+//         bcrypt.compare(plainPassword, hashedPassword, (err, match) => {
 //             if (err) {
 //                 return next(err);
 //             }
 
 //             if (match) {
-//                 // Save user session here, when login is successful
+//                 // If password match, create session
 //                 req.session.userId = req.body.username;
-//                 //redirect to home page
+//                 // Redirect to home page after successful login
 //                 return res.redirect('/');
 //             } else {
-//                 // Passwords don't match
+//                 // If passwords don't match
 //                 res.send('Incorrect password.');
 //             }
 //         });
 //     });
 // });
 
-
-// router.get('/register', function (req, res, next) {
+// // Route to render register page
+// router.get('/register', (req, res, next) => {
 //     res.render('register.ejs', {
-//         errors: [], // No errors initially
-//         shopData: { shopName: 'Aeroscope' }, // Replace with your actual shop data
-//         formData: {}, // Empty form data initially
+//         errors: [],
+//         formData: {} 
 //     });
 // });
-   
 
+// // Route to handle new user registration
 // router.post(
 //     '/registered',
 //     [
@@ -88,15 +99,14 @@
 //             .notEmpty()
 //             .withMessage('Username is required'),
 //     ],
-//     function (req, res, next) {
+//     (req, res, next) => {
 //         const errors = validationResult(req);
 
 //         // If validation errors exist, render the register page with errors
 //         if (!errors.isEmpty()) {
 //             return res.status(400).render('register', {
-//                 errors: errors.array(),  // Pass errors array to the template
-//                 shopData: { shopName: 'Your Shop Name' }, // Pass shop data
-//                 formData: req.body,     // Pass form data to preserve user input
+//                 errors: errors.array(),
+//                 formData: req.body, 
 //             });
 //         }
 
@@ -107,59 +117,59 @@
 //         const lastName = req.body.last_name;
 //         const email = req.body.email;
 
-//         bcrypt.hash(plainPassword, saltRounds, function (err, hashedPassword) {
+//         // Hash password before storing it in database 
+//         bcrypt.hash(plainPassword, saltRounds, (err, hashedPassword) => {
 //             if (err) {
 //                 return next(err);
 //             }
 
-//             let sqlquery =
-//                 "INSERT INTO users (username, first_name, last_name, email, hashedPassword) VALUES (?,?,?,?,?)";
+//             //Insert new user data into database
+//             let sqlquery = "INSERT INTO users (username, first_name, last_name, email, hashedPassword) VALUES (?,?,?,?,?)";
 //             let newUser = [username, firstName, lastName, email, hashedPassword];
 
 //             db.query(sqlquery, newUser, (err, result) => {
 //                 if (err) {
 //                     return next(err);
 //                 } else {
-//                     res.send(
-//                         `Hello ${firstName} ${lastName}, you are now registered with the username: ${username}.
-//                         We will send an email to you at ${email}`
-//                     );
+//                     res.send(`Hello ${firstName} ${lastName}, you are now registered with the username: ${username}`);
 //                 }
 //             });
 //         });
 //     }
 // );
 
+// // Route to render logout page
 // router.get('/logout', redirectLogin, (req, res) => {
 //     req.session.destroy(err => {
 //         if (err) {
 //             console.error('Error destroying session:', err);
 //             return res.redirect('/');  // Redirect if there's an error
 //         }
-//         res.redirect('/');  // Redirect to home after logout
+//         res.render('logout', {message: "You've successfully logged out"});  // Redirect to home after logout
 //     });
 // });
 
-
-// router.get('/listusers', function(req, res, next) {
-//     let sqlquery = "SELECT username, first_name, last_name, email FROM users" // query database to get user information
-//     // execute sql query
+// // List all users (admin-only route)
+// router.get('/listusers', (req, res, next) => {
+//     let sqlquery = "SELECT username, first_name, last_name, email, role FROM users"; // Query database for user information
 //     db.query(sqlquery, (err, result) => {
 //         if (err) {
-//             next(err)
+//             return next(err);
 //         }
-//         res.render("listusers.ejs", {userList:result})
-//      })
-// })
+//         res.render("listusers.ejs", { userList: result });
+//     });
+// });
+
+// // Export the router object to be used in other parts of the application
+// module.exports = router;
+// module.exports.redirectLogin = redirectLogin; // Export the redirectLogin middleware separately
 
 
 
-// // Export the router object so index.js can access it
-// module.exports = router
-// module.exports.redirectLogin = redirectLogin;
 
 
-// Create a new router
+
+//Importing required modules
 const express = require('express');
 const bcrypt = require('bcrypt');
 const router = express.Router();
@@ -169,18 +179,29 @@ const { check, validationResult } = require('express-validator');
 // Middleware to check if the user is logged in
 const redirectLogin = (req, res, next) => {
     if (!req.session.userId) {
-        res.redirect('/login'); // Redirect to the login page if not logged in
+        res.redirect('/login');
     } else {
-        next(); // Continue to the next middleware or route
+        next(); 
     }
 };
 
-// Login route
+// Middleware to check if the user has admin role
+const redirectAdmin = (req, res, next) => {
+    if (req.session.user && req.session.user.role === 'admin') {
+        next();
+    } else {
+        res.status(403).send('Access Denied');
+    }
+};
+
+
+
+// Route to render login page
 router.get('/login', (req, res, next) => {
-    res.render('login');  // This will load the login.ejs form
+    res.render('login'); 
 });
 
-// Post request for login
+// Route to handle login credentials
 router.post('/loggedin', (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -191,7 +212,7 @@ router.post('/loggedin', (req, res, next) => {
     const plainPassword = req.body.password;
 
     // Query the database to get the user's hashed password
-    let sqlquery = "SELECT * FROM users WHERE username = ?";
+    let sqlquery = "SELECT hashedPassword, role FROM users WHERE username = ?";
     db.query(sqlquery, [username], (err, result) => {
         if (err) {
             return next(err);
@@ -202,6 +223,7 @@ router.post('/loggedin', (req, res, next) => {
         }
 
         const hashedPassword = result[0].hashedPassword;
+        const userRole = result[0].role;
 
         // Compare the supplied password with the stored hashed password
         bcrypt.compare(plainPassword, hashedPassword, (err, match) => {
@@ -210,27 +232,28 @@ router.post('/loggedin', (req, res, next) => {
             }
 
             if (match) {
-                // Save user session here, when login is successful
-                req.session.userId = req.body.username;
+                // If password match, create session
+                req.session.userId = username;
+                req.session.user = { username: username, role: userRole };
                 // Redirect to home page after successful login
                 return res.redirect('/');
             } else {
-                // Passwords don't match
+                // If passwords don't match
                 res.send('Incorrect password.');
             }
         });
     });
 });
 
-// Register route
+// Route to render register page
 router.get('/register', (req, res, next) => {
     res.render('register.ejs', {
-        errors: [], // No errors initially
-        formData: {} // Empty form data initially
+        errors: [],
+        formData: {} 
     });
 });
 
-// Post request for registering a new user
+// Route to handle new user registration
 router.post(
     '/registered',
     [
@@ -255,7 +278,7 @@ router.post(
         if (!errors.isEmpty()) {
             return res.status(400).render('register', {
                 errors: errors.array(),
-                formData: req.body, // Preserve form data
+                formData: req.body, 
             });
         }
 
@@ -265,14 +288,17 @@ router.post(
         const firstName = req.body.first_name;
         const lastName = req.body.last_name;
         const email = req.body.email;
+        const role = req.body.role || 'user';
 
+        // Hash password before storing it in database 
         bcrypt.hash(plainPassword, saltRounds, (err, hashedPassword) => {
             if (err) {
                 return next(err);
             }
 
-            let sqlquery = "INSERT INTO users (username, first_name, last_name, email, hashedPassword) VALUES (?,?,?,?,?)";
-            let newUser = [username, firstName, lastName, email, hashedPassword];
+            //Insert new user data into database
+            let sqlquery = "INSERT INTO users (username, first_name, last_name, email, hashedPassword, role) VALUES (?,?,?,?,?)";
+            let newUser = [username, firstName, lastName, email, hashedPassword, 'user'];
 
             db.query(sqlquery, newUser, (err, result) => {
                 if (err) {
@@ -285,7 +311,7 @@ router.post(
     }
 );
 
-// Logout route (redirect to login if not logged in)
+// Route to render logout page
 router.get('/logout', redirectLogin, (req, res) => {
     req.session.destroy(err => {
         if (err) {
@@ -297,8 +323,8 @@ router.get('/logout', redirectLogin, (req, res) => {
 });
 
 // List all users (admin-only route)
-router.get('/listusers', (req, res, next) => {
-    let sqlquery = "SELECT username, first_name, last_name, email FROM users"; // Query database for user information
+router.get('/listusers', redirectAdmin, (req, res, next) => {
+    let sqlquery = "SELECT username, first_name, last_name, email, role FROM users"; // Query database for user information
     db.query(sqlquery, (err, result) => {
         if (err) {
             return next(err);
@@ -307,5 +333,6 @@ router.get('/listusers', (req, res, next) => {
     });
 });
 
+// Export the router object to be used in other parts of the application
 module.exports = router;
 module.exports.redirectLogin = redirectLogin; // Export the redirectLogin middleware separately

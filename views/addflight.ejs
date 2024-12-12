@@ -1,19 +1,3 @@
-<!-- <!doctype html>
-<html>
-  <head>
-    <title>Add flight to <%=shopData.shopName%></title>
-    <link rel="stylesheet"  type="text/css" href="/main.css" />
-  </head>
-  <body>
-    <h1><%=shopData.shopName%>: Add flight</h1>
-    <form method="POST" action="/flightadded">
-        <p>Flight destination name: <input id="name" type="text" name="name" value="" /></p>
-        <p>Price: <input id="price" type="text" name="price" value="" /></p>
-        <input type="submit" value="Add Flight" />
-      </form>
-  </body>
-</html> -->
-
 <!doctype html>
 <html>
   <head>
@@ -22,7 +6,10 @@
   </head>
   <body>
     <h1><%=shopData.shopName%>: Add flight</h1>
+
+    <!--Add flight form-->
     <form method="POST" action="/flightadded">
+      
       <!-- Flight Name Input -->
       <p>
         Flight destination name: 

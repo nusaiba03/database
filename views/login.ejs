@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
   <head>
     <title>Login for <%=shopData.shopName%></title>
@@ -11,5 +11,49 @@
       <p>Password: <input type="password" name="password" required /></p>
       <input type="submit" value="Login" />
     </form>
+  </body>
+</html>
+  -->
+
+  <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <nav class="nav">
+      <ul class="menu">
+        <li><a href="/">Home</a></li>
+        <li><a href="/about">About <%= shopData.shopName %></a></li>
+        <li><a href="/flights/search">Search for flights</a></li>
+        <li><a href="/flights/addflight">Add a new flight destination</a></li>
+        <li><a href="/flights/list">List flights</a></li>
+        <li><a href="/flights/bargainflights">Bargain flights</a></li>
+        <li><a href="/users/register">Register with us</a></li>
+        <li><a href="/users/listusers">List of registered users</a></li>
+        <li><a href="/users/login">Login page</a></li>
+        <li><a href="/users/logout">Logout</a></li>
+        <li><a href="/weather">Weather</a></li>
+      </ul>
+    </nav>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login for <%= shopData.shopName %></title>
+    <link rel="stylesheet" type="text/css" href="/main.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="form-container">
+        <h1>Login to Your Account</h1>
+        <form method="POST" action="/users/loggedin">
+          <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" name="username" id="username" required />
+          </div>
+          <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" name="password" id="password" required />
+          </div>
+          <button type="submit">Login</button>
+        </form>
+      </div>
+    </div>
   </body>
 </html>

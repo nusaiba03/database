@@ -1,11 +1,30 @@
 <!doctype html>
 <html>
   <head>
-    <title>About <%=shopData.shopName%></title>
-    <link rel="stylesheet"  type="text/css" href="/main.css" />
+    <nav class="nav">
+      <ul class="menu">
+        <li><a href="/">Home</a></li>
+        <li><a href="/about">About <%= shopData.shopName %></a></li>
+        <li><a href="/flights/search">Search for flights</a></li>
+        <li><a href="/flights/addflight">Add a new flight destination</a></li>
+        <li><a href="/flights/list">List flights</a></li>
+        <li><a href="/flights/bargainflights">Bargain flights</a></li>
+        <li><a href="/users/register">Register with us</a></li>
+        <li><a href="/users/listusers">List of registered users</a></li>
+        <li><a href="/users/login">Login page</a></li>
+        <li><a href="/users/logout">Logout</a></li>
+        <li><a href="/weather">Weather</a></li>
+      </ul>
+    </nav>
+    <title>About <%= shopData.shopName %></title>
+    <link rel="stylesheet" type="text/css" href="/main.css" />
   </head>
   <body>
-    <h1>About <%=shopData.shopName%></h1>
-    <p>We sell all sorts of flights to anywhere you want!</p>
+
+    <!-- Page Content -->
+    <div class="content">
+      <h1>About <%= shopData.shopName %></h1>
+      <p>Welcome to <%= shopData.shopName %>, your ultimate destination for seamless flight booking, management, and travel planning. Whether you're looking for the best deals, searching for flights to your dream destination, or managing your travel plans, we've got you covered!</p>
+    </div>
   </body>
 </html>

@@ -1,15 +1,20 @@
+//Importing required modules
 const express = require("express")
 const router = express.Router()
 const { check, validationResult } = require("express-validator");
-//const { redirectLogin } = require('./users');
 
-// Import the redirectLogin middleware
+// Import the redirectLogin and checkRole middleware
 const { redirectLogin } = require("./users");
+// const checkRole = require("./main");
+// const { checkRole } = require('./main');
 
+
+// Route to render search page
 router.get('/search',function(req, res, next){
     res.render("search.ejs")
 })
 
+// Route to handle search results
 router.get('/search_result', redirectLogin,function (req, res, next) {
     // Search the database
     let sqlquery = "SELECT * FROM flights WHERE name LIKE '%" + req.query.search_text + "%'" // query database to get all the books
@@ -22,9 +27,9 @@ router.get('/search_result', redirectLogin,function (req, res, next) {
      }) 
 })
 
-
+// Route to display list of all flights
 router.get('/list', function(req, res, next) {
-    let sqlquery = "SELECT * FROM flights" // query database to get all the books
+    let sqlquery = "SELECT * FROM flights" 
     // execute sql query
     db.query(sqlquery, (err, result) => {
         if (err) {
@@ -34,14 +39,15 @@ router.get('/list', function(req, res, next) {
      })
 })
 
-router.get('/addflight', function (req, res, next) {
-    res.render('addflight.ejs',{
-        formData: {},
-        errors: []
+// Route to render add flight page (admin-only) 
+router.get('/addflight', (req, res, next) => { 
+    res.render('addflight.ejs', { 
+        formData: {}, 
+        errors: [] 
     })
 })
 
- 
+ // Route to handle submission of new flights
 router.post(
     '/flightadded',
     [
@@ -58,6 +64,7 @@ router.post(
             .withMessage('Price must be a positive number.'),
     ],
     (req, res, next) => {
+        //Check validation errors
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             return res.status(400).render('addflight.ejs', {
@@ -66,7 +73,7 @@ router.post(
             });
         }
 
-        // Proceed with inserting the flight data
+        // If validation passes, inserting flight data into database
         let sqlquery = "INSERT INTO flights (name, price) VALUES (?, ?)";
         let newrecord = [req.body.name, req.body.price];
         db.query(sqlquery, newrecord, (err, result) => {
@@ -81,7 +88,7 @@ router.post(
     }
 );
 
-
+//Route to display bargain flights (<£200)
 router.get('/bargainflights', function(req, res, next) {
     let sqlquery = "SELECT * FROM flights WHERE price < 200"
     db.query(sqlquery, (err, result) => {

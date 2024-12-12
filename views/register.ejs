@@ -1,30 +1,12 @@
 <!-- <html>
   <head>
-    <title>Register for <%=shopData.shopName%></title>
-    <link rel="stylesheet"  type="text/css" href="/main.css" />
-  </head>
-  <body>
-    <h1>Register for <%=shopData.shopName%></h1>
-    <form method="POST" action="registered">
-        <p>First name: <input id="first_name" type="text" name="first_name" required/></p>
-        <p>Last name: <input id="last_name" type="text" name="last_name"required/></p>
-        <p>Email: <input id="email" type="email" name="email"required/></p>
-        <p>Username: <input id="username" type="text" name="username"required/></p>
-        <p>Password: <input id="password" type="password" name="password"required/></p>
-        <input type="submit" value="Register" />
-      </form>
-  </body>
-</html> -->
-
-<html>
-  <head>
     <title>Register for <%= shopData.shopName %></title>
     <link rel="stylesheet" type="text/css" href="/main.css" />
   </head>
   <body>
     <h1>Register for <%= shopData.shopName %></h1>
 
-    <!-- Display Validation Errors -->
+    Display Validation Errors 
     <% if (errors && errors.length > 0) { %>
       <div style="color: rgb(88, 86, 86);">
         <ul>
@@ -34,9 +16,12 @@
         </ul>
       </div>
     <% } %>
-
+ 
+    Registration Form
     <form method="POST" action="registered">
       <p>
+
+        First name input
         First name:
         <input
           id="first_name"
@@ -46,6 +31,8 @@
           required
         />
       </p>
+
+      Last name input
       <p>
         Last name:
         <input
@@ -56,6 +43,8 @@
           required
         />
       </p>
+
+      Email input
       <p>
         Email:
         <input
@@ -66,6 +55,8 @@
           required
         />
       </p>
+
+      Username input
       <p>
         Username:
         <input
@@ -76,6 +67,8 @@
           required
         />
       </p>
+
+      Password input
       <p>
         Password:
         <input
@@ -85,7 +78,105 @@
           required
         />
       </p>
+
+      Submit button
       <input type="submit" value="Register" />
     </form>
+  </body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <nav class="nav">
+      <ul class="menu">
+        <li><a href="/">Home</a></li>
+        <li><a href="/about">About <%= shopData.shopName %></a></li>
+        <li><a href="/flights/search">Search for flights</a></li>
+        <li><a href="/flights/addflight">Add a new flight destination</a></li>
+        <li><a href="/flights/list">List flights</a></li>
+        <li><a href="/flights/bargainflights">Bargain flights</a></li>
+        <li><a href="/users/register">Register with us</a></li>
+        <li><a href="/users/listusers">List of registered users</a></li>
+        <li><a href="/users/login">Login page</a></li>
+        <li><a href="/users/logout">Logout</a></li>
+        <li><a href="/weather">Weather</a></li>
+      </ul>
+    </nav>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register for <%= shopData.shopName %></title>
+    <link rel="stylesheet" type="text/css" href="/main.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="form-container">
+        <h1>Register for <%= shopData.shopName %></h1>
+
+        <% if (errors && errors.length > 0) { %>
+        <div class="error">
+          <ul>
+            <% errors.forEach(function (error) { %>
+            <li><%= error.msg %></li>
+            <% }); %>
+          </ul>
+        </div>
+        <% } %>
+
+        <form method="POST" action="registered">
+          <div class="form-group">
+            <label for="first_name">First Name:</label>
+            <input
+              id="first_name"
+              type="text"
+              name="first_name"
+              value="<%= formData.first_name || '' %>"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="last_name">Last Name:</label>
+            <input
+              id="last_name"
+              type="text"
+              name="last_name"
+              value="<%= formData.last_name || '' %>"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email:</label>
+            <input
+              id="email"
+              type="email"
+              name="email"
+              value="<%= formData.email || '' %>"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="username">Username:</label>
+            <input
+              id="username"
+              type="text"
+              name="username"
+              value="<%= formData.username || '' %>"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="password">Password:</label>
+            <input id="password" type="password" name="password" required />
+          </div>
+
+          <button type="submit">Register</button>
+        </form>
+      </div>
+    </div>
   </body>
 </html>
