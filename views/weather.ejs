@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 <head>
     <nav class="nav">
@@ -39,5 +39,53 @@
         <button type="submit">Get Weather</button>
     </form>
 </body>
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather in <%= city %></title>
+    <link rel="stylesheet" type="text/css" href="/main.css" />
+</head>
+<body>
+    <nav class="nav">
+        <ul class="menu">
+          <li><a href="/">Home</a></li>
+          <li><a href="/about">About <%= shopData.shopName %></a></li>
+          <li><a href="/flights/search">Search for flights</a></li>
+          <li><a href="/flights/addflight">Add a new flight destination</a></li>
+          <li><a href="/flights/list">List flights</a></li>
+          <li><a href="/flights/bargainflights">Bargain flights</a></li>
+          <li><a href="/users/register">Register with us</a></li>
+          <li><a href="/users/listusers">List of registered users</a></li>
+          <li><a href="/users/login">Login page</a></li>
+          <li><a href="/users/logout">Logout</a></li>
+          <li><a href="/weather">Weather</a></li>
+        </ul>
+    </nav>
+
+    <div class="container2">
+        <div class="weather-info">
+            <h1>Weather in <%= city %></h1>
+            <% if (error) { %>
+                <p class="error"><%= error %></p>
+            <% } else if (weather && weather.main) { %>
+                <p><strong>Temperature:</strong> <%= weather.main.temp %>°C</p>
+                <p><strong>Feels Like:</strong> <%= weather.main.feels_like %>°C</p>
+                <p><strong>Weather:</strong> <%= weather.weather[0].description %></p>
+                <p><strong>Humidity:</strong> <%= weather.main.humidity %>%</p>
+                <p><strong>Wind Speed:</strong> <%= weather.wind.speed %> m/s</p>
+            <% } else { %>
+                <p>Sorry, we couldn't fetch the weather data. Please try again later.</p>
+            <% } %>
+
+            <form class="search-form" action="/weather" method="get">
+                <label for="city">Search for another city:</label>
+                <input type="text" name="city" id="city" placeholder="Enter city name" />
+                <button type="submit">Get Weather</button>
+            </form>
+        </div>
+    </div>
+</body>
 </html>
- 

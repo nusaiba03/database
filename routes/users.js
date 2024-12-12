@@ -297,7 +297,7 @@ router.post(
             }
 
             //Insert new user data into database
-            let sqlquery = "INSERT INTO users (username, first_name, last_name, email, hashedPassword, role) VALUES (?,?,?,?,?)";
+            let sqlquery = "INSERT INTO users (username, first_name, last_name, email, hashedPassword, role) VALUES (?,?,?,?,?,?)";
             let newUser = [username, firstName, lastName, email, hashedPassword, 'user'];
 
             db.query(sqlquery, newUser, (err, result) => {

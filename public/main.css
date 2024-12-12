@@ -1,154 +1,20 @@
-/* #nav {
-  padding: 20px;
-  text-align: center;
-  position: fixed;
-  width: 200px;
-  height: calc(100vh - 40px);
-  z-index: 1;
-  overflow-y: auto;
-}
-
-h1 {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 20px;
-    color: darkcyan;
-}
-
-h2 {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 20px;
-    color: cadetblue;
-}
-
-p,li {
-    font-family: Arial, Helvetica, sans-serif;
-}
-
-a:link {
-    color: orangered;
-    text-decoration: none;
-    padding:5px;
-  }
-  
-  /* visited link */
-  /* a:visited {
-    color: tomato;
-    text-decoration: none;
-    padding:5px;
-  } */
-  
-  /* mouse over link */
-  /* a:hover {
-    color: white;
-    text-decoration: none;
-    background-color: orangered;
-    padding:5px;
-  } */
-  
-  /* selected link */
-  /* a:active {
-    color: blue;
-    text-decoration: none;
-    padding:5px;
-  } */
- 
-
-  /* Weather Page Styles */
-/* body {
-  font-family: Arial, sans-serif;
-  background-color: #f0f8ff;
-  color: #333;
-  margin: 0;
-  padding: 20px;
-}
-
-h1 {
-  color: #007BFF;
-}
-
-p {
-  font-size: 1.2em;
-}
-
-.error {
-  color: red;
-  font-weight: bold;
-}
-
-.search-form {
-  margin-top: 20px;
-}
-
-.search-form input[type="text"] {
-  padding: 8px;
-  margin-right: 10px;
-  font-size: 1em;
-}
-
-.search-form button {
-  padding: 8px 12px;
-  font-size: 1em;
-  background-color: #007BFF;
-  color: white;
-  border: none;
-  cursor: pointer;
-}
-
-.search-form button:hover {
-  background-color: #0056b3;
-}
-
-nav {
-  padding: 20px;
-  text-align: center;
-  position: fixed;
-  width: 200px;
-  height: calc(100vh - 40px);
-  z-index: 1;
-  overflow-y: auto;
-}
-
-#nav {
-  background-color: #ffffff;
-  top: 150px;
-  left: 0;
-  border-right: 1px solid #ddd;
-  overflow-y: auto;
-} */ */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* Navbar styles */
-/* Navbar styles */
+/* Navbar Styles */
 .nav {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #bebcbc;
-  padding: 0.5rem 1rem;
+  background-color: #333;
+  padding: 1rem;
   color: white;
-}
-
-.nav .logo {
-  font-size: 1.5rem;
-  font-weight: bold;
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
 .nav .menu {
   list-style: none;
   display: flex;
-  gap: 1rem;
+  gap: 1.5rem;
 }
 
 .nav .menu li {
@@ -156,7 +22,7 @@ nav {
 }
 
 .nav .menu li a {
-  color: rgb(91, 87, 87);
+  color: #fff;
   text-decoration: none;
   padding: 0.5rem 1rem;
   border-radius: 5px;
@@ -165,8 +31,8 @@ nav {
 
 .nav .menu li a:hover {
   background-color: #f2ecec;
+  color: #333;
 }
-
 
 @media (max-width: 768px) {
   .menu {
@@ -191,29 +57,216 @@ nav {
 }
 
 /* Global Page Styles */
-body {
+ body {
   font-family: Arial, sans-serif;
   background-color: #f0f8ff;
   color: #333;
   margin: 0;
   padding: 0;
+  line-height: 1.6;
+  border-left: 10px ; 
+   border-right: 10px ;
+}  
+
+/* Container for login and register forms */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 20px;
 }
 
-/* Centering content */
-.content {
-  text-align: center;
-  margin-top: 100px; /* Adjust this to control spacing from the navbar */
+.form-container {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
 }
 
 h1 {
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 36px;
-  color: darkcyan;
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+h2 {
+  font-size: 1.5rem;
+  color: #333;
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+label {
+  font-size: 1rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 0.5rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+input:focus {
+  border-color: #007bff;
+}
+
+button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  width: 100%;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.error {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 1rem;
+  border-radius: 5px;
   margin-bottom: 20px;
 }
 
-p {
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 1.5em;
-  color: #333;
+.error ul {
+  list-style: none;
+  padding: 0;
 }
+
+.error ul li {
+  margin: 5px 0;
+} 
+
+/* Styling for Form Container */
+ .form-container2{
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 80%; 
+  max-width: 600px; 
+  min-width: 300px; 
+  margin: 20px auto; 
+} 
+
+
+/* Search Form Styles */
+ .search-form {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem; 
+  margin-top: 20px; 
+  width: 100%;
+  max-width: 300px;
+  justify-content: center;
+}
+
+.search-form input {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  width: 200px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.search-form input:focus {
+  border-color: #007bff;
+}
+
+.search-form button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem; 
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: auto; 
+}
+
+.search-form button:hover {
+  background-color: #0056b3;
+}
+
+.search-form button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+} 
+
+.container2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 50px;
+  width: 100%;
+  padding: 20px;
+  
+}
+
+.weather-info {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 600px;
+  min-width: 300px;
+  text-align: center;
+}
+/* flight list content */
+.main-content {
+  padding: 20px;
+}
+
+.shop-info {
+  text-align: center;
+}
+
+.flight-list {
+  list-style: none;
+  padding: 0;
+}
+
+.flight-item {
+  margin: 1rem 0;
+  font-size: 1.2rem;
+  color: #007bff;
+}
+
+.flight-item:last-child {
+  margin-bottom: 0;
+}
+
+

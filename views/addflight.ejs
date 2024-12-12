@@ -1,12 +1,28 @@
 <!doctype html>
 <html>
   <head>
+    <nav class="nav">
+      <ul class="menu">
+        <li><a href="/">Home</a></li>
+        <li><a href="/about">About <%= shopData.shopName %></a></li>
+        <li><a href="/flights/search">Search for flights</a></li>
+        <li><a href="/flights/addflight">Add a new flight destination</a></li>
+        <li><a href="/flights/list">List flights</a></li>
+        <li><a href="/flights/bargainflights">Bargain flights</a></li>
+        <li><a href="/users/register">Register with us</a></li>
+        <li><a href="/users/listusers">List of registered users</a></li>
+        <li><a href="/users/login">Login page</a></li>
+        <li><a href="/users/logout">Logout</a></li>
+        <li><a href="/weather">Weather</a></li>
+      </ul>
+    </nav>
     <title>Add flight to <%=shopData.shopName%></title>
     <link rel="stylesheet" type="text/css" href="/main.css" />
   </head>
-  <body>
-    <h1><%=shopData.shopName%>: Add flight</h1>
+  <body> 
+  <h1><%=shopData.shopName%>: Add flight</h1>
 
+  <div class="form-container2">
     <!--Add flight form-->
     <form method="POST" action="/flightadded">
       
@@ -37,7 +53,9 @@
       <!-- Submit Button -->
       <input type="submit" value="Add Flight" />
     </form>
+  </div>
   </body>
 </html>
 
 
+ 

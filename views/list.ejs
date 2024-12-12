@@ -20,13 +20,17 @@
     <link rel="stylesheet"  type="text/css" href="/main.css" />
   </head>
   <body>
+  <main class="main-content">
+    <section class="shop-info">
     <h1><%=shopData.shopName%> Shop</h1>
     <h2>Here are the flights that we sell:</h2>
-    <ul>
+    <ul class="flight-list">
       <% availableFlights.forEach(function(flight) { %>
-        <li><%= flight.name %>, £<%=flight.price%> </li>
+        <li class="flight-item"><%= flight.name %>, £<%=flight.price%> </li>
       <% }) %>
     </ul>
-    </body>
+  </section>
+  </main>
+  </body>
 </html>
  
