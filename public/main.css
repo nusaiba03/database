@@ -65,7 +65,8 @@
   padding: 0;
   line-height: 1.6;
   border-left: 10px ; 
-   border-right: 10px ;
+  border-right: 10px ;
+  align-items: center;
 }  
 
 /* Container for login and register forms */
@@ -254,6 +255,14 @@ button:disabled {
   text-align: center;
 }
 
+.about-info {
+  text-align: center;
+  font-size: 1.3rem; /* Increase the text size */
+  margin-top: 20px; /* Move the text down */
+  line-height: 1.8;
+}
+
+
 .flight-list {
   list-style: none;
   padding: 0;
@@ -269,4 +278,27 @@ button:disabled {
   margin-bottom: 0;
 }
 
+.about-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center; 
+  height: 100vh; 
+  margin: 0;
+  padding: 20px; 
+  background-color: #f9f9f9; 
+}
+
+.about-content h1 {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.about-content p {
+  font-size: 1.2rem;
+  color: #666;
+  line-height: 1.8;
+}
 
