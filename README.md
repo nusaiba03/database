@@ -13,3 +13,7 @@ Installation:
 2. navigate to project directory: cd aeroscope
 3. install dependencies: npm install
 4. to start: npm start or node index.js
+
+for admin user the user and password is:
+username: sam
+password: testpassword
