@@ -28,4 +28,4 @@ ADD role ENUM('admin', 'user') DEFAULT 'user';
 
 UPDATE users
 SET role = 'admin'
-WHERE username = 'Sam';
+WHERE username = 'sam';
