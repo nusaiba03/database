@@ -257,8 +257,8 @@ button:disabled {
 
 .about-info {
   text-align: center;
-  font-size: 1.3rem; /* Increase the text size */
-  margin-top: 20px; /* Move the text down */
+  font-size: 1.3rem; 
+  margin-top: 20px; 
   line-height: 1.8;
 }
 

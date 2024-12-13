@@ -6,7 +6,6 @@ const { check, validationResult } = require("express-validator");
 // Import the redirectLogin and checkRole middleware
 const { redirectLogin } = require("./users");
 // const checkRole = require("./main");
-// const { checkRole } = require('./main');
 
 
 // Route to render search page
