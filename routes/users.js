@@ -65,7 +65,7 @@ router.post('/loggedin', (req, res, next) => {
                 req.session.userId = username;
                 req.session.user = { username: username, role: userRole };
                 // Redirect to home page after successful login
-                return res.redirect('/');
+                return res.redirect('/usr/721/');
             } else {
                 // If passwords don't match
                 res.send('Incorrect password.');
